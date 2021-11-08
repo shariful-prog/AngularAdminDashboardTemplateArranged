@@ -1,0 +1,65 @@
+<div class="text-center mt-4">
+    <h1 class="h2">Welcome back</h1>
+    <p class="lead">
+        Sign in to your account to continue
+    </p>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="m-sm-4">
+            <div class="text-center">
+                <img src="../../../assets/img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle"
+                    width="132" height="132">
+            </div>
+            <form [formGroup]="modelForm">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" formControlName="UserName" class="form-control form-control-lg"
+                        placeholder="Email"
+                        [ngClass]="{'is-invalid': submitted && (f.UserName.value===null||f.UserName.value==='') }">
+                    <div *ngIf="submitted && f.UserName.errors" class="error-text">
+                        <span
+                            *ngIf="f.UserName.errors.required && f.UserName.invalid && (f.UserName.dirty || f.UserName.touched)"
+                            class="text-danger"> This is required
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" formControlName="Password" class="form-control form-control-lg"
+                        placeholder="Enter your password"
+                        [ngClass]="{'is-invalid': submitted && (f.Password.value===null||f.Password.value==='') }">
+
+                    <div *ngIf="submitted && f.Password.errors" class="error-text">
+                        <span
+                            *ngIf="f.Password.errors.required && f.Password.invalid && (f.Password.dirty || f.Password.touched)"
+                            class="text-danger"> This is required
+                        </span>
+                    </div>
+                    <small>
+                        <a href="#">Forgot password?</a>
+                    </small>
+                </div>
+                <div>
+                    <label class="form-check">
+                        <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me"
+                            checked="">
+                        <span class="form-check-label">
+                            Remember me next time
+                        </span>
+                    </label>
+                </div>
+                <div class="text-center mt-3 mb-3" *ngIf="errorMessage!=='' || errorMessage!==null">
+                    <label class="form-label text-danger">{{errorMessage}}</label>
+                </div>
+                <div class="text-center mt-3">
+                    <!-- <a href="index.html" class="btn btn-lg btn-primary">Sign in</a>
+                    <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+                    <button type="button" (click)="login()" class="btn btn-lg btn-primary"><span>Sign In</span></button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

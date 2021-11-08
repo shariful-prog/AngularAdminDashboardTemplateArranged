@@ -1,0 +1,107 @@
+<!-- sidebar start-->
+<nav id="sidebar" class="sidebar js-sidebar" >
+    <div class="sidebar-content js-simplebar" *ngFor="let asideItems of menuItems.getAll()" >
+        <a class="sidebar-brand" [routerLink]="['/', 'dashboard']">
+            <span class="sidebar-brand-text align-middle">
+                {{(asideItems.cms_name) }}
+                <sup><small class="badge bg-primary text-uppercase"></small></sup>
+            </span>
+            <svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewbox="0 0 24 24" fill="none"
+                stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF"
+                style="margin-left: -3px">
+                <path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
+                <path d="M20 12L12 16L4 12"></path>
+                <path d="M20 16L12 20L4 16"></path>
+            </svg>
+        </a>
+
+        <ul class="sidebar-nav">
+            <div *ngFor="let asideItem of asideItems.main">
+                <!-- Only One level menu -->
+                <li class="sidebar-item" routerLink="{{asideItem.router_link}}" *ngIf="asideItem.type =='link'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a class="sidebar-link">
+                        <i class="{{asideItem.icon}}"></i>
+                        {{asideItem.name}}
+                    </a>
+
+                </li>
+
+                <!-- has sub menu -->
+                <li class="sidebar-item" *ngIf="asideItem.type =='sub'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [attr.data-bs-target]="'#'+asideItem.id" data-bs-toggle="collapse"
+                        class="sidebar-link collapsed">
+                        <i class="{{asideItem.icon}}"></i>
+                        {{asideItem.name}}
+                    </a>
+
+                    <ul data-bs-parent="#sidebar" id="{{asideItem.id}}" class="sidebar-dropdown list-unstyled collapse"
+                        *ngFor="let firstlevel of asideItem.children">
+
+                        <!-- second level menu without sub menu -->
+                        <li *ngIf="firstlevel.type =='link'" class="sidebar-item"
+                            routerLink="{{firstlevel.router_link}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a class="sidebar-link">
+                                {{firstlevel.name}}
+                            </a>
+
+                        </li>
+
+                        <!-- second level menu With sub menu -->
+                        <li *ngIf="firstlevel.type =='sub'" class="sidebar-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                            <a class="sidebar-link" [attr.data-bs-target]="'#'+firstlevel.id" data-bs-toggle="collapse"
+                                class="sidebar-link collapsed">
+                                {{firstlevel.name}}
+                            </a>
+
+                            <ul id="{{firstlevel.id}}" class="sidebar-dropdown list-unstyled collapse"
+                                *ngFor="let secondLevel of firstlevel.children">
+                                <!-- Third level menu without sub menu -->
+                                <li *ngIf="secondLevel.type =='link'" class="sidebar-item"
+                                    routerLink="{{secondLevel.router_link}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                                    <a class="sidebar-link">
+                                        {{secondLevel.name}}
+                                    </a>
+
+                                </li>
+
+                                <!-- third level menu With sub menu -->
+                                <li *ngIf="secondLevel.type =='sub'" class="sidebar-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                                    <a class="sidebar-link" [attr.data-bs-target]="'#'+secondLevel.id"
+                                        data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                        {{secondLevel.name}}
+                                    </a>
+
+                                    <ul id="{{secondLevel.id}}" class="sidebar-dropdown list-unstyled collapse"
+                                        *ngFor="let thirdLevel of secondLevel.children">
+                                        <!-- final level Menu name -->
+                                        <li *ngIf="thirdLevel.type =='link'" class="sidebar-item"
+                                            routerLink="{{thirdLevel.router_link}}" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                                            <a class="sidebar-link">
+                                                {{thirdLevel.name}}
+                                            </a>
+
+                                        </li>
+
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+
+
+                    </ul>
+                </li>
+            </div>
+
+
+
+
+
+        </ul>
+
+    </div>
+</nav>
